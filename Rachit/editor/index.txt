@@ -1,0 +1,30 @@
+var editBtn = document.getElementById('editBtn');
+var editables = document.querySelectorAll(' #author, #content');
+
+if (typeof(Storage) !== "undefined") {
+ 
+  if (localStorage.getItem('author') !== null) {
+    editables[0].innerHTML = localStorage.getItem('content');
+  }
+  
+}
+// firebase can be used in here ..instead of  local storage
+
+
+editBtn.addEventListener('click', function(e) {
+  if (!editables[0].isContentEditable) {
+    editables[0].contentEditable = 'true';
+
+    editBtn.innerHTML = 'Save Changes';
+    editBtn.style.backgroundColor = '#6F9';
+  } else {
+   
+    editables[0].contentEditable = 'false';
+    editBtn.innerHTML = 'Enable Editing';
+    editBtn.style.backgroundColor = '#F96';
+    // Save the data in localStorage 
+    for (var i = 0; i < editables.length; i++) {
+      localStorage.setItem(editables[i].getAttribute('id'), editables[i].innerHTML);
+    }
+  }
+});
